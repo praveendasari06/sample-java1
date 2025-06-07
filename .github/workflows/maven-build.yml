@@ -20,3 +20,18 @@ jobs:
         distribution: 'temurin'
     - name: Build with Maven
       run: mvn clean install
+    - name: Run Tests
+      run: mvn test
+    - name: Build Docker Image
+      run: docker build -t praveen0828/java-build1:latest .
+
+    - name: Login to Dockerhub
+      run: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    - name: Push Docker image
+      run: docker push praveen0828/java-build1:latest
+
+      
